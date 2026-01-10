@@ -14,10 +14,10 @@ def drop_redundant_columns(df):
 
 def extract_datetime_features(df, date_col="Date"):
     df = df.copy()
+
     df[date_col] = pd.to_datetime(
         df[date_col],
-        format="%m/%d/%Y %I:%M:%S %p",
-        errors="coerce"
+        errors="coerce"   # ignore invalid format
     )
 
     df["Hour"] = df[date_col].dt.hour
@@ -26,6 +26,7 @@ def extract_datetime_features(df, date_col="Date"):
     df["DayOfWeek"] = df[date_col].dt.dayofweek
 
     return df.drop(columns=[date_col])
+
 
 def fill_missing_values(df):
     df = df.copy()
